@@ -23,7 +23,7 @@ class Help extends Command {
 				hlp[`${cmd.name}${i}`] = cmd.description;
 			}
 			else{
-				hlp[`${cmd.name}${i}`] = '';
+				hlp[`${cmd.name}${i}`] = 'no descrption';
 			}
 			// message.client.commands.delete(command.name)
 
