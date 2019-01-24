@@ -8,6 +8,7 @@ class Status extends liberch.Command {
 	async execute(client, message) {
 		const guild = message.guild;
 		const sql = new liberch.SQLite3('settings.sqlite');
+		await sql.insertIgnore('settings', ['guild'], [message.guild.id]);
 		const settings = await sql.get('settings', 'guild', message.guild.id);
 		const ed = new RichEmbed()
 			.setTitle('customizable settings')
