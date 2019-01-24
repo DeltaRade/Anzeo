@@ -7,19 +7,20 @@ class Help extends Command {
 		super({ name:'help' });
 	}
 
-	execute(client, message, args) {
+	execute(client, message) {
 		const hlp = {};
 		const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 		for (const file of commandFiles) {
 
 			const command = require(`./${file}`);
-			console.log(command);
+			const cmd = new command();
+			console.log(command.name);
 			let i = '';
-			if(command.alias) {
-				i = i + ' | ' + command.alias.join(' ');
+			if(cmd.alias) {
+				i = i + ' | ' + cmd.alias.join(' ');
 			}
-			if(command.description) {
-				hlp[`${command.name}${i}`] = command.description;
+			if(cmd.description) {
+				hlp[`${cmd.name}${i}`] = cmd.description;
 			}
 			// message.client.commands.delete(command.name)
 
