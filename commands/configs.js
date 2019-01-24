@@ -13,10 +13,10 @@ class Status extends liberch.Command {
 			.setTitle('customizable settings')
 			.addField('welcome channel', `<#${settings.welcomechannel}>`, false)
 			.addField('welcome message', `\`\`\`${settings.welcomemsg}\`\`\``, false)
-			.addField('leave channel',`<#${settings.leavechannel}>`, false)
+			.addField('leave channel', `<#${settings.leavechannel}>`, false)
 			.addField('leave message', `\`\`\`${settings.leavemsg}\`\`\``)
 			.addField('autorole status', settings.autoroleenabled || false, false)
-			.addField('autorole role', guild.roles.get(settings.autorolerole).name, false);
+			.addField('autorole role', guild.roles.get(settings.autorolerole).name || 'Not Set', false);
 		message.channel.send(ed);
 		await sql.close();
 	}
