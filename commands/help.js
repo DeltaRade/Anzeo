@@ -14,7 +14,6 @@ class Help extends Command {
 
 			const command = require(`./${file}`);
 			const cmd = new command();
-			console.log(command.name);
 			let i = '';
 			if(cmd.alias) {
 				i = i + ' | ' + cmd.alias.join(' ');
