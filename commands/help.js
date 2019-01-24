@@ -14,12 +14,16 @@ class Help extends Command {
 
 			const command = require(`./${file}`);
 			const cmd = new command();
+			console.log(cmd);
 			let i = '';
 			if(cmd.alias) {
 				i = i + ' | ' + cmd.alias.join(' ');
 			}
 			if(cmd.description) {
 				hlp[`${cmd.name}${i}`] = cmd.description;
+			}
+			else{
+				hlp[`${cmd.name}${i}`] = '';
 			}
 			// message.client.commands.delete(command.name)
 
