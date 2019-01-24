@@ -15,4 +15,4 @@ filewatch.on('dirChanged', (event, dir, file)=>{
 	console.log('reloading files');
 	client.reloadCommand(`${dir}/${file}`);
 });
-client.login(process.env.token);// process.env.token
+client.login('NTMzNDA4OTUxNzY1ODI3NTg1.DyZ0VA.Ci8pnQ5-kCLAeBOqs9ZN6ocI_QM');// process.env.token
