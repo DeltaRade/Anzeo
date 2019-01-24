@@ -9,7 +9,7 @@ class Help extends Command {
 
 	execute(client, message, args) {
 		const hlp = {};
-		const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+		const commandFiles = fs.readdirSync('.').filter(file => file.endsWith('.js'));
 		for (const file of commandFiles) {
 
 			const command = require(`./${file}`);

@@ -11,6 +11,7 @@ class Status extends liberch.Command {
 		await sql.insertIgnore('settings', ['guild'], [message.guild.id]);
 		const settings = await sql.get('settings', 'guild', message.guild.id);
 		const ed = new RichEmbed()
+			.setColor('FFB766')
 			.setTitle('customizable settings')
 			.addField('welcome channel', settings.welcomechannel ? `<#${settings.welcomechannel}>` : 'Not Set', false)
 			.addField('welcome message', `\`\`\`${settings.welcomemsg}\`\`\``, false)
