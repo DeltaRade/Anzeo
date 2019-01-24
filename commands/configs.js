@@ -11,9 +11,9 @@ class Status extends liberch.Command {
 		const settings = await sql.get('settings', 'guild', message.guild.id);
 		const ed = new RichEmbed()
 			.setTitle('customizable settings')
-			.addField('welcome channel', `<#${settings.welcomechannel}>`, false)
+			.addField('welcome channel', settings.welcomechannel ? `<#${settings.welcomechannel}>` : 'Not Set', false)
 			.addField('welcome message', `\`\`\`${settings.welcomemsg}\`\`\``, false)
-			.addField('leave channel', `<#${settings.leavechannel}>`, false)
+			.addField('leave channel', settings.leavechannel ? `<#${settings.leavechannel}>` : 'Not Set', false)
 			.addField('leave message', `\`\`\`${settings.leavemsg}\`\`\``)
 			.addField('autorole status', settings.autoroleenabled || false, false)
 			.addField('autorole role', settings.autorolerole ? guild.roles.get(settings.autorolerole).name : 'Not Set', false);
