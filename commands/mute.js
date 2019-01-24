@@ -1,5 +1,5 @@
 const liberch = require('liberch');
-const { ms } = require('ms');
+const ms = require('ms');
 class MuteCommand extends liberch.Command {
 	constructor() {
 		super({ name:'mute' });
