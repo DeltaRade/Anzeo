@@ -17,7 +17,7 @@ class Status extends liberch.Command {
 			.addField('welcome message', `\`\`\`${settings.welcomemsg}\`\`\``, false)
 			.addField('leave channel', settings.leavechannel ? `<#${settings.leavechannel}>` : 'Not Set', false)
 			.addField('leave message', `\`\`\`${settings.leavemsg}\`\`\``)
-			.addField('autorole status', settings.autoroleenabled || false, false)
+			.addField('autorole status', settings.autoroleenabled || 'disabled', false)
 			.addField('autorole role', settings.autorolerole ? guild.roles.get(settings.autorolerole).name : 'Not Set', false);
 		message.channel.send(ed);
 		await sql.close();
