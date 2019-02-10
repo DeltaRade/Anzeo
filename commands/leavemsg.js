@@ -11,7 +11,7 @@ class Leavemsg extends liberch.Command {
 		});
 		if(!args[0]) {
 			message.channel.send('disabled leave message');
-			await sqlite.insertOrUpdate('settings', ['guild', 'leavemsg'], [message.guild.id, '']);
+			await sqlite.upsert('settings', ['guild', 'leavemsg'], [message.guild.id, '']);
 			// await sqlite.update('settings', 'leavemsg', '', 'guild', message.guild.id);
 			await sqlite.end();
 			return;
