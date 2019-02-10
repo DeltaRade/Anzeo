@@ -12,9 +12,10 @@ class Status extends liberch.Command {
 			ssl:true,
 		});
 		await sql.connect();
-		await sql.query(`INSERT INTO settings(guild) VALUES(${message.guild.id}) ON CONFLICT((WHERE guild='${message.guild.id}'::text)) DO NOTHING`)
-		console.log(await sql.query(`SELECT guild FROM settings`))
 		const settings = await sql.query(`SELECT * FROM settings WHERE guild='${message.guild.id}'`);
+		if(!settings) {
+			return message.channel.send('Data unavailable');
+		}
 		const ed = new RichEmbed()
 			.setColor('FFB766')
 			.setTitle('customizable settings')
