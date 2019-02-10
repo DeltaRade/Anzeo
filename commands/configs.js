@@ -12,7 +12,7 @@ class Status extends liberch.Command {
 			ssl:true,
 		});
 		await sql.connect();
-		await sql.query(`INSERT INTO settings(guild) VALUES(${message.guild.id}) ON CONFLICT DO NOTHING`)
+		await sql.query(`INSERT INTO settings(guild) VALUES(${message.guild.id}) ON CONFLICT(WHERE guild=${message.guild.id}) DO NOTHING`)
 		console.log(await sql.query(`SELECT guild FROM settings`))
 		const settings = await sql.query(`SELECT * FROM settings WHERE guild='${message.guild.id}'`);
 		const ed = new RichEmbed()
