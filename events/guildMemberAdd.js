@@ -1,11 +1,8 @@
-const { PostgreSQL } = require('liberch');
+const { SQLite3 } = require('liberch');
 module.exports = async (client, member)=>{
-	const sql = new PostgreSQL({
-		connectionString:process.env.DATABASE_URL,
-		ssl:true,
-	});
+	const sql = new SQLite3('settings.sqlite');
 	const settings = await sql.get('settings', 'guild', member.guild.id);
-	await sql.end();
+	sql.close();
 	if(!settings || !settings.welcomechannel || !settings.welcomemsg || settings.welcomemsg == '') {
 		return;
 	}

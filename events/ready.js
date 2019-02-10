@@ -1,13 +1,9 @@
-const { PostgreSQL } = require('liberch');
-module.exports = async (client)=>{
+const { SQLite3 } = require('liberch');
+module.exports = (client)=>{
 	console.log(`ready ${client.user.username}`);
 	client.user.setActivity('Li | . | &');
-	const db = new PostgreSQL({
-		connectionString:process.env.DATABASE_URL,
-		ssl:true,
-	});
-	await db.connect();
-	await db.query('CREATE TABLE IF NOT EXISTS settings (guild,welcomemsg,welcomechannel,leavemsg,leavechannel,autoroleenabled,autorolerole)');
-	await db.end();
+	const db = new SQLite3('settings.sqlite');
+	db.createTable('settings', ['guild', 'welcomemsg', 'welcomechannel', 'leavemsg', 'leavechannel', 'autoroleenabled', 'autorolerole']);
+	db.close();
 	// client.emit('guildMemberAdd', client.guilds.first().me);
 };

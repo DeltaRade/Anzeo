@@ -5,21 +5,18 @@ class Welcomemsg extends liberch.Command {
 	}
 
 	async execute(client, message, args) {
-		const sql = new liberch.PostgreSQL({
-			connectionString:process.env.DATABASE_URL,
-			ssl:true,
-		});
-		await sql.connect();
+		const sqlite = new liberch.SQLite3('settings.sqlite');
 		if(!args[0]) {
 			message.channel.send('disabled welcome message');
-			await sql.upsert('settings', ['guild', 'welcomemsg'], [message.guild.id, '']);
-			await sql.end();
+			await sqlite.update('settings', 'welcomemsg', '', 'guild', message.guild.id);
+			await sqlite.close();
 			return;
 		}
 		const msg = args.join(' ');
 		const guildID = message.guild.id;
-		await sql.upsert('settings', ['guild', 'welcomemsg'], [guildID, msg]);
-		await sql.end();
+		await sqlite.insertIgnore('settings', ['guild', 'welcomemsg'], [guildID, msg]);
+		await sqlite.update('settings', 'welcomemsg', msg, 'guild', guildID);
+		await sqlite.close();
 		message.channel.send(`welcome message selected\npreview:\n\`\`\`${msg}\`\`\``);
 	}
 }

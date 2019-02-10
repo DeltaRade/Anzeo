@@ -5,7 +5,6 @@ client.loadEvents('events');
 client.events.on('commandError', (error)=>{
 	console.log(error);
 });
-
 const filewatch = new liberch.FileWatch();
 filewatch.watchDir('commands');
 filewatch.on('dirChanged', (event, dir, file)=>{
@@ -13,17 +12,5 @@ filewatch.on('dirChanged', (event, dir, file)=>{
 	if(event != 'change') {return;}
 	console.log('reloading files');
 	client.reloadCommand(`${dir}/${file}`);
-});
-
-process.on('unhandledRejection', (err)=>{
-	console.error(err);
-	if (err.name == 'DiscordAPIError' && err.message == '401: Unauthorized') return process.exit();
-	(client.channels.get('0') || client.channels.get('544148815746433024')).send(`
-\`\`\`xs
-Error: ${err.name}
-    ${err.message}
-    ${err.stack}
-    \`\`\`
-    `);
 });
 client.login(process.env.token);// process.env.token
