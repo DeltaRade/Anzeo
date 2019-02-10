@@ -12,7 +12,7 @@ class Status extends liberch.Command {
 			ssl:true,
 		});
 		await sql.connect();
-		await sql.query(`INSERT OR DO INSTEAD NOTHING INTO settings(guild) VALUES(${message.guild.id})`);
+		await sql.query(`INSERT INTO settings(guild) VALUES(${message.guild.id}) WHERE (EXISTS ( SELECT 1 FROM settings WHERE settings.guild = NEW.guild)) DO INSTEAD NOTHING;`);
 		const settings = await sql.get('settings', 'guild', message.guild.id);
 		const ed = new RichEmbed()
 			.setColor('FFB766')
