@@ -12,7 +12,7 @@ class Status extends liberch.Command {
 			ssl:true,
 		});
 		await sql.connect();
-		await sql.query(`IGNORE OR INSERT INTO settings(guild) VALUES(${message.guild.id})`);
+		await sql.upsert('settings', ['guild'], [message.guild.id]);
 		const settings = await sql.get('settings', 'guild', message.guild.id);
 		const ed = new RichEmbed()
 			.setColor('FFB766')
