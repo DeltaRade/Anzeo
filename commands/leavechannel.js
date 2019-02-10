@@ -10,7 +10,7 @@ class LChannel extends Command {
 			ssl:true,
 		});
 		const channel = message.channel;
-		await sql.insertOrUpdate('settings', ['guild', 'leavechannel'], [message.guild.id, channel.id]);
+		await sql.upsert('settings', ['guild', 'leavechannel'], [message.guild.id, channel.id]);
 		await sql.end();
 		message.channel.send('leave channel selected');
 	}

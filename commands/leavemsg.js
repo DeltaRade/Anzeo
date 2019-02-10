@@ -18,7 +18,7 @@ class Leavemsg extends liberch.Command {
 		}
 		const msg = args.join(' ');
 		const guildID = message.guild.id;
-		await sqlite.insertOrUpdate('settings', ['guild', 'leavemsg'], [guildID, msg]);
+		await sqlite.upsert('settings', ['guild', 'leavemsg'], [guildID, msg]);
 		await sqlite.end();
 		message.channel.send(`leave message selected\npreview:\n\`\`\`${msg}\`\`\``);
 	}
