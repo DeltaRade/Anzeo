@@ -18,7 +18,7 @@ filewatch.on('dirChanged', (event, dir, file)=>{
 process.on('unhandledRejection', (err)=>{
 	console.error(err);
 	if (err.name == 'DiscordAPIError' && err.message == '401: Unauthorized') return process.exit();
-	(client.channels.get('0') || client.channels.get('543167247330312232')).send(`
+	(client.channels.get('0') || client.channels.get('544148815746433024')).send(`
 \`\`\`xs
 Error: ${err.name}
     ${err.message}
