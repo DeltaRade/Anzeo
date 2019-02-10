@@ -1,6 +1,6 @@
 const { Utils } = require('liberch');
 module.exports = (client, message)=>{
-	if(Utils.containsInvite(message.content)) {
+	if(message.content.contains('discord.gg')) {
 		message.delete();
 	}
 };
