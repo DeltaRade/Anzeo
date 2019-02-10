@@ -6,6 +6,7 @@ module.exports = async (client)=>{
 		connectionString:process.env.DATABASE_URL,
 		ssl:true,
 	});
+	await db.connect();
 	await db.query('CREATE TABLE IF NOT EXISTS settings (guild,welcomemsg,welcomechannel,leavemsg,leavechannel,autoroleenabled,autorolerole)');
 	await db.end();
 	// client.emit('guildMemberAdd', client.guilds.first().me);
