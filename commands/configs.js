@@ -7,8 +7,12 @@ class Status extends liberch.Command {
 
 	async execute(client, message) {
 		const guild = message.guild;
-		const sql = new liberch.SQLite3('settings.sqlite');
-		await sql.insertIgnore('settings', ['guild'], [message.guild.id]);
+		const sql = new liberch.PostgreSQL({
+			connectionString:process.env.DATABASE_URL,
+			ssl:true,
+		});
+		await sql.connect();
+		await sql.query(`INSERT OR IGNORE INTO settings(guild) VALUES(${message.guild.id})`);
 		const settings = await sql.get('settings', 'guild', message.guild.id);
 		const ed = new RichEmbed()
 			.setColor('FFB766')
@@ -20,7 +24,7 @@ class Status extends liberch.Command {
 			.addField('autorole status', settings.autoroleenabled || 'disabled', false)
 			.addField('autorole role', settings.autorolerole ? guild.roles.get(settings.autorolerole).name : 'Not Set', false);
 		message.channel.send(ed);
-		await sql.close();
+		await sql.end();
 	}
 }
 
