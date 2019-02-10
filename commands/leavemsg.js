@@ -9,6 +9,7 @@ class Leavemsg extends liberch.Command {
 			connectionString:process.env.DATABASE_URL,
 			ssl:true,
 		});
+		await sqlite.connect();
 		if(!args[0]) {
 			message.channel.send('disabled leave message');
 			await sqlite.upsert('settings', ['guild', 'leavemsg'], [message.guild.id, '']);

@@ -9,6 +9,7 @@ class LChannel extends Command {
 			connectionString:process.env.DATABASE_URL,
 			ssl:true,
 		});
+		await sql.connect();
 		const channel = message.channel;
 		await sql.upsert('settings', ['guild', 'leavechannel'], [message.guild.id, channel.id]);
 		await sql.end();
