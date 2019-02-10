@@ -5,18 +5,22 @@ class Leavemsg extends liberch.Command {
 	}
 
 	async execute(client, message, args) {
-		const sqlite = new liberch.SQLite3('settings.sqlite');
+		const sqlite = new liberch.PostgreSQL({
+			connectionString:process.env.DATABASE_URL,
+			ssl:true,
+		});
+		await sqlite.connect();
 		if(!args[0]) {
 			message.channel.send('disabled leave message');
-			await sqlite.update('settings', 'leavemsg', '', 'guild', message.guild.id);
-			await sqlite.close();
+			await sqlite.upsert('settings', ['guild', 'leavemsg'], [message.guild.id, '']);
+			// await sqlite.update('settings', 'leavemsg', '', 'guild', message.guild.id);
+			await sqlite.end();
 			return;
 		}
 		const msg = args.join(' ');
 		const guildID = message.guild.id;
-		await sqlite.insertIgnore('settings', ['guild', 'leavemsg'], [guildID, msg]);
-		await sqlite.update('settings', 'leavemsg', msg, 'guild', guildID);
-		await sqlite.close();
+		await sqlite.upsert('settings', ['guild', 'leavemsg'], [guildID, msg]);
+		await sqlite.end();
 		message.channel.send(`leave message selected\npreview:\n\`\`\`${msg}\`\`\``);
 	}
 }
