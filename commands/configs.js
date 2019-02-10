@@ -12,7 +12,7 @@ class Status extends liberch.Command {
 			ssl:true,
 		});
 		await sql.connect();
-		await sql.query(`INSERT INTO settings(guild) VALUES(${message.guild.id}) ON CONFLICT (guild) DO UPDATE SET guild=${message.guild.id}`);
+		await sql.query(`INSERT INTO settings(guild UNIQUE) VALUES(${message.guild.id}) ON CONFLICT (guild) DO UPDATE SET guild=${message.guild.id}`);
 		const settings = await sql.query(`SELECT * FROM settings WHERE guild='${message.guild.id}'`);
 		if(!settings) {
 			return message.channel.send('Data unavailable');
