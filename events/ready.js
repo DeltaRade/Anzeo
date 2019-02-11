@@ -7,7 +7,7 @@ module.exports = async (client)=>{
 		ssl:true,
 	});
 	await db.connect();
-	await db.createTable('settings', ['guild', 'welcomemsg', 'welcomechannel', 'leavemsg', 'leavechannel', 'autoroleenabled', 'autorolerole']);
+	await db.createTable('settings', ['guild', 'welcomemsg', 'welcomechannel', 'leavemsg', 'leavechannel', 'autoroleenabled', 'autorolerole'],'guild');
 	await db.end();
 	// client.emit('guildMemberAdd', client.guilds.first().me);
 };
