@@ -12,7 +12,7 @@ class Status extends liberch.Command {
 			ssl:true,
 		});
 		await sql.connect();
-		const settings = await sql.get('settings', 'guild', message.guild.id);
+		const settings = await sql.get('settings', 'guild', `'${message.guild.id}');
 		if(!settings) {
 			return message.channel.send('Data unavailable');
 		}
