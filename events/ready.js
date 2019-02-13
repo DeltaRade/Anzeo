@@ -1,7 +1,7 @@
 const { PostgreSQL } = require('liberch');
 module.exports = async (client)=>{
 	console.log(`ready ${client.user.username}`);
-	client.user.setActivity('Li | . | &');
+	client.user.setActivity('Li | .');
 	const db = new PostgreSQL({
 		connectionString:process.env.DATABASE_URL,
 		ssl:true,
