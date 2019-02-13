@@ -11,7 +11,7 @@ class LChannel extends Command {
 		});
 		await sql.connect();
 		const channel = message.channel;
-		await sql.upsert('settings', ['guild', 'leavechannel'], [message.guild.id, channel.id]);
+		await sql.upsert('settings', ['guild', 'leavechannel'], [message.guild.id, channel.id], 'guild', 'leavechannel', channel.id);
 		await sql.end();
 		message.channel.send('leave channel selected');
 	}

@@ -4,7 +4,9 @@ module.exports = async (client, member)=>{
 		connectionString:process.env.DATABASE_URL,
 		ssl:true,
 	});
-	const settings = await sql.get('settings', 'guild', member.guild.id);
+	await sql.connect();
+	let settings = await sql.get('settings', 'guild', member.guild.id);
+	settings = settings.rows[0];
 	await sql.end();
 	if(!settings || !settings.leavechannel || !settings.leavemsg || settings.leavemsg == '') {
 		return;

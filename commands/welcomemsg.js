@@ -1,7 +1,7 @@
 const liberch = require('liberch');
 class Welcomemsg extends liberch.Command {
 	constructor() {
-		super({ name:'welcomemsg', alias:['wmsg'] });
+		super({ name:'welcomemsg', alias:['wmsg'], description:'sets the welcome message.\naccepted variables are `{mention}`,`{tag}`' });
 	}
 
 	async execute(client, message, args) {
@@ -12,13 +12,13 @@ class Welcomemsg extends liberch.Command {
 		await sql.connect();
 		if(!args[0]) {
 			message.channel.send('disabled welcome message');
-			await sql.upsert('settings', ['guild', 'welcomemsg'], [message.guild.id, '']);
+			await sql.upsert('settings', ['guild', 'welcomemsg'], [message.guild.id, ''], 'guild', 'welcomemsg', '');
 			await sql.end();
 			return;
 		}
 		const msg = args.join(' ');
 		const guildID = message.guild.id;
-		await sql.upsert('settings', ['guild', 'welcomemsg'], [guildID, msg]);
+		await sql.upsert('settings', ['guild', 'welcomemsg'], [guildID, msg], 'guild', 'welcomemsg', msg);
 		await sql.end();
 		message.channel.send(`welcome message selected\npreview:\n\`\`\`${msg}\`\`\``);
 	}

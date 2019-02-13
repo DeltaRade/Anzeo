@@ -13,7 +13,7 @@ class SetAutoRoleRole extends liberch.Command {
 			ssl:true,
 		});
 		await sql.connect();
-		await sql.upsert('settings', ['guild', 'autorolerole'], [message.guild.id, role.id]);
+		await sql.upsert('settings', ['guild', 'autorolerole'], [message.guild.id, role.id], 'guild', 'autorolerole', role.id);
 		await sql.end();
 		message.channel.send(`set autorole role to: \`\`${role.name}\`\``);
 	}

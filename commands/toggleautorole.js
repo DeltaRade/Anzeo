@@ -10,13 +10,14 @@ class EnableATR extends liberch.Command {
 			ssl:true,
 		});
 		await sql.connect();
-		const isenabled = await sql.get('settings', 'guild', message.guild.id);
+		let isenabled = await sql.get('settings', 'guild', message.guild.id);
+		isenabled = isenabled.rows[0];
 		if(!isenabled || !isenabled.autoroleenabled || isenabled.autoroleenabled === 'false') {
-			await sql.upsert('settings', ['guild', 'autoroleenabled'], [message.guild.id, true]);
+			await sql.upsert('settings', ['guild', 'autoroleenabled'], [message.guild.id, true], 'guild', 'autoroleenabled', true);
 			message.channel.send('autorole enabled');
 		}
 		else{
-			await sql.upsert('settings', ['guild', 'autoroleenabled'], [message.guild.id, false]);
+			await sql.upsert('settings', ['guild', 'autoroleenabled'], [message.guild.id, 'false'], 'guild', 'autoroleenabled', false);
 			message.channel.send('autorole disabled');
 		}
 

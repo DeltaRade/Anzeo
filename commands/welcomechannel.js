@@ -11,7 +11,7 @@ class WChannel extends Command {
 		});
 		await sql.connect();
 		const channel = message.channel;
-		await sql.upsert('settings', ['guild', 'welcomechannel'], [message.guild.id, channel.id]);
+		await sql.upsert('settings', ['guild', 'welcomechannel'], [message.guild.id, channel.id], 'guild', 'welcomechannel', channel.id);
 		await sql.end();
 		message.channel.send('welcome channel selected');
 	}
