@@ -16,7 +16,10 @@ class KickCommand extends Command {
 			return message.channel.send('invalid user');
 		}
 
-		user.kick(`requested by ${message.author.username}`);
+		user.kick(`requested by ${message.author.username}`)
+		.catch((e)=>{
+			message.reply(e.message)
+		});
 	}
 
 }
