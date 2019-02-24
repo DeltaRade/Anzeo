@@ -4,7 +4,7 @@ class Welcomemsg extends liberch.Command {
 		super({ name:'welcomemsg', alias:['wmsg'], description:'sets the welcome message.\naccepted variables are `{mention}`,`{tag}`' });
 	}
 
-	async execute(client, message, args) {
+	async execute(message, args) {
 		const sql = new liberch.PostgreSQL({
 			connectionString:process.env.DATABASE_URL,
 			ssl:true,

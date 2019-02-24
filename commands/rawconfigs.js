@@ -4,7 +4,7 @@ class RawStatus extends liberch.Command {
 		super({ name:'rawconfigs', description:'sends raw Database data of the guild the command is used in' });
 	}
 
-	async execute(client, message) {
+	async execute(message) {
 		const guild = message.guild;
 		if(!guild) return;
 		const sql = new liberch.PostgreSQL({

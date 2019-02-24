@@ -4,7 +4,7 @@ class Leavemsg extends liberch.Command {
 		super({ name:'leavemsg', alias:['lmsg'] });
 	}
 
-	async execute(client, message, args) {
+	async execute(message, args) {
 		const sqlite = new liberch.PostgreSQL({
 			connectionString:process.env.DATABASE_URL,
 			ssl:true,

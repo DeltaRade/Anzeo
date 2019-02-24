@@ -3,7 +3,7 @@ class SetAutoRoleRole extends liberch.Command {
 	constructor() {
 		super({ name:'setautorolerole', alias:['setarole'] });
 	}
-	async execute(client, message, args) {
+	async execute(message, args) {
 		const role = message.guild.roles.find(x=>x.name.toLowerCase() == args[0].toLowerCase()) || message.guild.roles.get(args[0]);
 		if(!role) {
 			return message.channel.send('invalid role name or role id');

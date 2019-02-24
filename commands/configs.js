@@ -5,7 +5,7 @@ class Status extends liberch.Command {
 		super({ name:'configs' });
 	}
 
-	async execute(client, message) {
+	async execute(message) {
 		const guild = message.guild;
 		const sql = new liberch.PostgreSQL({
 			connectionString:process.env.DATABASE_URL,

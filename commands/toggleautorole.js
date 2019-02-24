@@ -4,7 +4,7 @@ class EnableATR extends liberch.Command {
 		super({ name:'toggleautorole', alias:['tarole'] });
 	}
 
-	async execute(client, message, args) {
+	async execute(message, args) {
 		const sql = new liberch.PostgreSQL({
 			connectionString:process.env.DATABASE_URL,
 			ssl:true,

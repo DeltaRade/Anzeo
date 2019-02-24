@@ -3,7 +3,7 @@ class MuteCommand extends liberch.Command {
 	constructor() {
 		super({ name:'unmute' });
 	}
-	async execute(client, message, args) {
+	async execute(message, args) {
 		if(!message.member.hasPermission('KICK_MEMBERS')) {
 			return;
 		}

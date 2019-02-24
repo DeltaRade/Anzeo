@@ -4,7 +4,7 @@ class WChannel extends Command {
 		super({ name:'welcomechannel', alias:['wchannel'] });
 	}
 
-	async execute(client, message) {
+	async execute(message) {
 		const sql = new PostgreSQL({
 			connectionString:process.env.DATABASE_URL,
 			ssl:true,

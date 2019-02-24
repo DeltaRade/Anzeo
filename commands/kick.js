@@ -6,11 +6,10 @@ class KickCommand extends Command {
 	}
 	/**
 	 *
-	 * @param {liberch.Client} client
 	 * @param {Message} message
 	 * @param {Array} args
 	 */
-	execute(client, message) {
+	execute(message) {
 		const user = message.mentions.members.first();
 		if(!user) {
 			return message.channel.send('invalid user');
