@@ -5,6 +5,9 @@ class WChannel extends Command {
 	}
 
 	async execute(message) {
+		if(!message.member.permissions.has('MANAGE_GUILD')){
+			return message.reply('insufficient permissions (needs MANAGE_GUILD)')
+		}
 		const sql = new PostgreSQL({
 			connectionString:process.env.DATABASE_URL,
 			ssl:true,

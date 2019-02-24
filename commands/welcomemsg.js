@@ -5,6 +5,9 @@ class Welcomemsg extends liberch.Command {
 	}
 
 	async execute(message, args) {
+		if(!message.member.permissions.has('MANAGE_GUILD')){
+			return message.reply('insufficient permissions (needs MANAGE_GUILD)')
+		}
 		const sql = new liberch.PostgreSQL({
 			connectionString:process.env.DATABASE_URL,
 			ssl:true,

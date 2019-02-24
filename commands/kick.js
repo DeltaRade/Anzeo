@@ -10,6 +10,9 @@ class KickCommand extends Command {
 	 * @param {Array} args
 	 */
 	execute(message) {
+		if(!message.member.permissions.has('KICK_MEMBERS')){
+			return message.reply('insufficient permissions (needs KICK_MEMBERS)')
+		}
 		const user = message.mentions.members.first();
 		if(!user) {
 			return message.channel.send('invalid user');
