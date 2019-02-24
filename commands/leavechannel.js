@@ -9,7 +9,6 @@ class LChannel extends Command {
 	}
 	/**
 	 * @inheritdoc
-	 * @param {*} message 
 	 */
 	async execute( message) {
 		if(!message.member.permissions.has('MANAGE_GUILD')){
