@@ -10,8 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.4.2",
-    "dmap": "git+https://github.com/DeltaRade/DMap.git",
-    "dmap-postgres": "git+https://github.com/DeltaRade/DMap.git#postgresql",
-    "liberch": "git+https://github.com/DeltaRade/d.js-framework.git"
+    "liberch": "git+https://github.com/DeltaRade/liberch"
   }
 }
