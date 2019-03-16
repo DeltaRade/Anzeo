@@ -1,9 +1,6 @@
-const liberch = require('liberch');
-class MuteCommand extends liberch.Command {
-	constructor() {
-		super({ name:'unmute' });
-	}
-	async execute(message, args) {
+const {Command} = require('liberch');
+let unmute=new Command({name:'unmute'})
+unmute.setExecute ((message, args)=> {
 		if(!message.member.hasPermission('KICK_MEMBERS')) {
 			return;
 		}
@@ -17,7 +14,6 @@ class MuteCommand extends liberch.Command {
 			await person.removeRole(role);
 			message.channel.send(`${person.user.tag} has been unmuted`);
 		}
-	}
-}
+	})
 
-module.exports = MuteCommand;
+module.exports = unmute;

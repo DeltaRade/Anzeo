@@ -1,10 +1,7 @@
 const liberch = require('liberch');
 const ms = require('ms');
-class MuteCommand extends liberch.Command {
-	constructor() {
-		super({ name:'mute', usage:'mute {mention} {time?}(defaults to infinite)' });
-	}
-	async execute(message, args) {
+let mute=new liberch.Command({ name:'mute', usage:'mute {mention} {time?}(defaults to infinite)' })
+mute.setExecute((message, args)=> {
 		if(!message.member.hasPermission('KICK_MEMBERS')) {
 			return;
 		}
@@ -42,7 +39,7 @@ class MuteCommand extends liberch.Command {
 				message.channel.send(`unmuted ${person.user.tag}`);
 			}, ms(time));
 		}
-	}
-}
+	})
 
-module.exports = MuteCommand;
+
+module.exports = mute;

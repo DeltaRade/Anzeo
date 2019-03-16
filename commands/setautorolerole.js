@@ -1,9 +1,6 @@
 const liberch = require('liberch');
-class SetAutoRoleRole extends liberch.Command {
-	constructor() {
-		super({ name:'setautorolerole', alias:['setarole'] });
-	}
-	async execute(message, args) {
+let sautorole=new liberch.Command({ name:'setautorole', alias:['setarole'] })
+sautorole.setExecute((message, args)=> {
 		
 		if(!message.member.permissions.has('MANAGE_GUILD')){
 			return message.reply('insufficient permissions (needs MANAGE_GUILD)')
@@ -20,6 +17,5 @@ class SetAutoRoleRole extends liberch.Command {
 		await sql.upsert('settings', ['guild', 'autorolerole'], [message.guild.id, role.id], 'guild', 'autorolerole', role.id);
 		await sql.end();
 		message.channel.send(`set autorole role to: \`\`${role.name}\`\``);
-	}
-}
-module.exports = SetAutoRoleRole;
+	})
+module.exports = sautorole;

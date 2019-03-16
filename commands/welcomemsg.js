@@ -1,10 +1,6 @@
-const liberch = require('liberch');
-class Welcomemsg extends liberch.Command {
-	constructor() {
-		super({ name:'welcomemsg', alias:['wmsg'], description:'sets the welcome message.\naccepted variables are `{mention}`,`{tag}`' });
-	}
-
-	async execute(message, args) {
+const {Command} = require('liberch');
+let wmsg=new Command({ name:'welcomemsg', alias:['wmsg'], description:'sets the welcome message.\naccepted variables are `{mention}`,`{tag}`' })
+wmsg.setExecute ((message, args)=> {
 		if(!message.member.permissions.has('MANAGE_GUILD')){
 			return message.reply('insufficient permissions (needs MANAGE_GUILD)')
 		}
@@ -24,7 +20,6 @@ class Welcomemsg extends liberch.Command {
 		await sql.upsert('settings', ['guild', 'welcomemsg'], [guildID, msg], 'guild', 'welcomemsg', msg);
 		await sql.end();
 		message.channel.send(`welcome message selected\npreview:\n\`\`\`${msg}\`\`\``);
-	}
-}
+	})
 
-module.exports = Welcomemsg;
+module.exports = wmsg;

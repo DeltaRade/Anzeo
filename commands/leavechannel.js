@@ -1,16 +1,6 @@
 const { Command, PostgreSQL } = require('liberch');
-/**
- * @extends Command 
- * @augments Command
- */
-class LChannel extends Command {
-	constructor() {
-		super({ name:'leavechannel', alias:['lchannel'] });
-	}
-	/**
-	 * @inheritdoc
-	 */
-	async execute( message) {
+let lchannel=new Command({ name:'leavechannel', alias:['lchannel'] })
+lchannel.setExecute( message=> {
 		if(!message.member.permissions.has('MANAGE_GUILD')){
 			return message.reply('insufficient permissions (needs MANAGE_GUILD)')
 		}
@@ -23,7 +13,6 @@ class LChannel extends Command {
 		await sql.upsert('settings', ['guild', 'leavechannel'], [message.guild.id, channel.id], 'guild', 'leavechannel', channel.id);
 		await sql.end();
 		message.channel.send('leave channel selected');
-	}
-}
+	})
 
-module.exports = LChannel;
+module.exports = lChannel;

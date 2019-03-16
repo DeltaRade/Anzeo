@@ -1,15 +1,6 @@
 const { Command } = require('liberch');
-const { Message } = require('discord.js');
-class KickCommand extends Command {
-	constructor() {
-		super({ name:'kick' });
-	}
-	/**
-	 *
-	 * @param {Message} message
-	 * @param {Array} args
-	 */
-	execute(message) {
+let kick=new Command({name:'kick'})
+kick.setExecute(message=> {
 		if(!message.member.permissions.has('KICK_MEMBERS')){
 			return message.reply('insufficient permissions (needs KICK_MEMBERS)')
 		}
@@ -22,8 +13,6 @@ class KickCommand extends Command {
 		.catch((e)=>{
 			message.reply(e.message)
 		});
-	}
+	})
 
-}
-
-module.exports = KickCommand;
+module.exports = kick;

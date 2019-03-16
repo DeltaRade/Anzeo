@@ -1,10 +1,6 @@
 const liberch = require('liberch');
-class RawStatus extends liberch.Command {
-	constructor() {
-		super({ name:'rawconfigs', description:'sends raw Database data of the guild the command is used in' });
-	}
-
-	async execute(message) {
+let raw=new liberch.Command({ name:'rawconfigs', description:'sends raw Database data of the guild the command is used in' })
+raw.setExecute(message=> {
 		const guild = message.guild;
 		if(!guild) return;
 		const sql = new liberch.PostgreSQL({
@@ -19,7 +15,5 @@ class RawStatus extends liberch.Command {
 		}
 		message.channel.send(`Raw config data.\n\`\`\`js\n${ require('util').inspect(settings) }\`\`\``);
 		await sql.end();
-	}
-}
-
-module.exports = RawStatus;
+	})
+module.exports = raw;

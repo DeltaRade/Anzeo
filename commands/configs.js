@@ -1,11 +1,7 @@
 const liberch = require('liberch');
 const { RichEmbed } = require('discord.js');
-class Status extends liberch.Command {
-	constructor() {
-		super({ name:'configs' });
-	}
-
-	async execute(message) {
+let status=new liberch.Command({name:'configs'})
+status.setExecute(message=>{
 		const guild = message.guild;
 		const sql = new liberch.PostgreSQL({
 			connectionString:process.env.DATABASE_URL,
@@ -28,7 +24,7 @@ class Status extends liberch.Command {
 			.addField('autorole role', settings.autorolerole ? guild.roles.get(settings.autorolerole).name : 'Not Set', false);
 		message.channel.send(ed);
 		await sql.end();
-	}
-}
+	})
 
-module.exports = Status;
+
+module.exports = status;

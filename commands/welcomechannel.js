@@ -1,10 +1,6 @@
 const { Command, PostgreSQL } = require('liberch');
-class WChannel extends Command {
-	constructor() {
-		super({ name:'welcomechannel', alias:['wchannel'] });
-	}
-
-	async execute(message) {
+let wchannel=new Command({ name:'welcomechannel', alias:['wchannel'] })
+wchannel.setExecute (message=> {
 		if(!message.member.permissions.has('MANAGE_GUILD')){
 			return message.reply('insufficient permissions (needs MANAGE_GUILD)')
 		}
@@ -17,7 +13,6 @@ class WChannel extends Command {
 		await sql.upsert('settings', ['guild', 'welcomechannel'], [message.guild.id, channel.id], 'guild', 'welcomechannel', channel.id);
 		await sql.end();
 		message.channel.send('welcome channel selected');
-	}
-}
+	})
 
-module.exports = WChannel;
+module.exports = wchannel;

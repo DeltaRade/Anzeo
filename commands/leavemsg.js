@@ -1,10 +1,6 @@
 const liberch = require('liberch');
-class Leavemsg extends liberch.Command {
-	constructor() {
-		super({ name:'leavemsg', alias:['lmsg'] });
-	}
-
-	async execute(message, args) {
+let leavemsg=new liberch.Command({ name:'leavemsg', alias:['lmsg'] })
+leavemsg.setExecute((message, args)=> {
 		
 		if(!message.member.permissions.has('MANAGE_GUILD')){
 			return message.reply('insufficient permissions (needs MANAGE_GUILD)')
@@ -26,7 +22,5 @@ class Leavemsg extends liberch.Command {
 		await sqlite.upsert('settings', ['guild', 'leavemsg'], [guildID, msg], 'guild', 'leavemsg', msg);
 		await sqlite.end();
 		message.channel.send(`leave message selected\npreview:\n\`\`\`${msg}\`\`\``);
-	}
-}
-
-module.exports = Leavemsg;
+	})
+module.exports = leavemsg;

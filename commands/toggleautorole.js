@@ -1,10 +1,6 @@
 const liberch = require('liberch');
-class EnableATR extends liberch.Command {
-	constructor() {
-		super({ name:'toggleautorole', alias:['tarole'] });
-	}
-
-	async execute(message, args) {
+let autorole=new liberch.Command({ name:'toggleautorole', alias:['tarole'] })
+autorole.setExecute((message, args)=> {
 		
 		if(!message.member.permissions.has('MANAGE_GUILD')){
 			return message.reply('insufficient permissions (needs MANAGE_GUILD)')
@@ -26,7 +22,7 @@ class EnableATR extends liberch.Command {
 		}
 
 		await sql.end();
-	}
-}
+	})
 
-module.exports = EnableATR;
+
+module.exports = autorole;
