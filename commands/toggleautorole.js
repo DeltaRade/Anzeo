@@ -1,6 +1,6 @@
 const liberch = require('liberch');
 let autorole=new liberch.Command({ name:'toggleautorole', alias:['tarole'] })
-autorole.setExecute((message, args)=> {
+autorole.setExecute(async (message, args)=> {
 		
 		if(!message.member.permissions.has('MANAGE_GUILD')){
 			return message.reply('insufficient permissions (needs MANAGE_GUILD)')

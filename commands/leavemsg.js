@@ -1,6 +1,6 @@
 const liberch = require('liberch');
 let leavemsg=new liberch.Command({ name:'leavemsg', alias:['lmsg'] })
-leavemsg.setExecute((message, args)=> {
+leavemsg.setExecute(async (message, args)=> {
 		
 		if(!message.member.permissions.has('MANAGE_GUILD')){
 			return message.reply('insufficient permissions (needs MANAGE_GUILD)')

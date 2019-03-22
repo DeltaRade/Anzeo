@@ -1,7 +1,7 @@
 const liberch = require('liberch');
 const ms = require('ms');
 let mute=new liberch.Command({ name:'mute', usage:'mute {mention} {time?}(defaults to infinite)' })
-mute.setExecute((message, args)=> {
+mute.setExecute(async(message, args)=> {
 		if(!message.member.hasPermission('KICK_MEMBERS')) {
 			return;
 		}

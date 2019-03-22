@@ -1,6 +1,6 @@
 const liberch = require('liberch');
 let raw=new liberch.Command({ name:'rawconfigs', description:'sends raw Database data of the guild the command is used in' })
-raw.setExecute(message=> {
+raw.setExecute(async message=> {
 		const guild = message.guild;
 		if(!guild) return;
 		const sql = new liberch.PostgreSQL({

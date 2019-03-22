@@ -1,6 +1,6 @@
 const {Command} = require('liberch');
 let wmsg=new Command({ name:'welcomemsg', alias:['wmsg'], description:'sets the welcome message.\naccepted variables are `{mention}`,`{tag}`' })
-wmsg.setExecute ((message, args)=> {
+wmsg.setExecute (async (message, args)=> {
 		if(!message.member.permissions.has('MANAGE_GUILD')){
 			return message.reply('insufficient permissions (needs MANAGE_GUILD)')
 		}

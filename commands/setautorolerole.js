@@ -1,6 +1,6 @@
 const liberch = require('liberch');
 let sautorole=new liberch.Command({ name:'setautorole', alias:['setarole'] })
-sautorole.setExecute((message, args)=> {
+sautorole.setExecute(async (message, args)=> {
 		
 		if(!message.member.permissions.has('MANAGE_GUILD')){
 			return message.reply('insufficient permissions (needs MANAGE_GUILD)')

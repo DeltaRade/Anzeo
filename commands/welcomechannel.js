@@ -1,6 +1,6 @@
 const { Command, PostgreSQL } = require('liberch');
 let wchannel=new Command({ name:'welcomechannel', alias:['wchannel'] })
-wchannel.setExecute (message=> {
+wchannel.setExecute (async message=> {
 		if(!message.member.permissions.has('MANAGE_GUILD')){
 			return message.reply('insufficient permissions (needs MANAGE_GUILD)')
 		}

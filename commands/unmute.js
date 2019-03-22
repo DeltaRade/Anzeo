@@ -1,6 +1,6 @@
 const {Command} = require('liberch');
 let unmute=new Command({name:'unmute'})
-unmute.setExecute ((message, args)=> {
+unmute.setExecute (async (message, args)=> {
 		if(!message.member.hasPermission('KICK_MEMBERS')) {
 			return;
 		}
