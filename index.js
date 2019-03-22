@@ -8,4 +8,7 @@ client.commandHandler.on('commandError', (error)=>{
 client.on('message', (message)=>{
 	client.commandHandler.handle(message);
 });
+client.on('messageUpdate', (old, nw)=>{
+	client.commandHandler.handle(nw);
+});
 client.login(process.env.token);// process.env.token
