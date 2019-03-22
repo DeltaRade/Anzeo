@@ -1,30 +1,30 @@
 const liberch = require('liberch');
 const { RichEmbed } = require('discord.js');
-let status=new liberch.Command({name:'configs'})
+const status = new liberch.Command({ name:'configs' });
 status.setExecute(async message=>{
-		const guild = message.guild;
-		const sql = new liberch.PostgreSQL({
-			connectionString:process.env.DATABASE_URL,
-			ssl:true,
-		});
-		await sql.connect();
-		let settings = await sql.get('settings', 'guild', message.guild.id);
-		settings = settings.rows[0];
-		if(!settings) {
-			return message.channel.send('Data unavailable');
-		}
-		const ed = new RichEmbed()
-			.setColor('FFB766')
-			.setTitle('customizable settings')
-			.addField('welcome channel', settings.welcomechannel ? `<#${settings.welcomechannel}>` : 'Not Set', false)
-			.addField('welcome message', `\`\`\`${settings.welcomemsg}\`\`\``, false)
-			.addField('leave channel', settings.leavechannel ? `<#${settings.leavechannel}>` : 'Not Set', false)
-			.addField('leave message', `\`\`\`${settings.leavemsg}\`\`\``)
-			.addField('autorole status', settings.autoroleenabled || 'disabled', false)
-			.addField('autorole role', settings.autorolerole ? guild.roles.get(settings.autorolerole).name : 'Not Set', false);
-		message.channel.send(ed);
-		await sql.end();
-	})
+	const guild = message.guild;
+	const sql = new liberch.PostgreSQL({
+		connectionString:process.env.DATABASE_URL,
+		ssl:true,
+	});
+	await sql.connect();
+	let settings = await sql.get('settings', 'guild', message.guild.id);
+	settings = settings.rows[0];
+	if(!settings) {
+		return message.channel.send('Data unavailable');
+	}
+	const ed = new RichEmbed()
+		.setColor('FFB766')
+		.setTitle('customizable settings')
+		.addField('welcome channel', settings.welcomechannel ? `<#${settings.welcomechannel}>` : 'Not Set', false)
+		.addField('welcome message', `\`\`\`${settings.welcomemsg}\`\`\``, false)
+		.addField('leave channel', settings.leavechannel ? `<#${settings.leavechannel}>` : 'Not Set', false)
+		.addField('leave message', `\`\`\`${settings.leavemsg}\`\`\``)
+		.addField('autorole status', settings.autoroleenabled || 'disabled', false)
+		.addField('autorole role', settings.autorolerole ? guild.roles.get(settings.autorolerole).name : 'Not Set', false);
+	message.channel.send(ed);
+	await sql.end();
+});
 
 
 module.exports = status;
