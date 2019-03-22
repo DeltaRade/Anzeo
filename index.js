@@ -6,6 +6,6 @@ client.commandHandler.on('commandError', (error)=>{
 	console.log(error);
 });
 client.on('message', (message)=>{
-	client.commandHandler.exec(message);
+	client.commandHandler.handle(message);
 });
 client.login(process.env.token);// process.env.token
