@@ -1,7 +1,7 @@
 const liberch = require('liberch');
 const { RichEmbed } = require('discord.js');
 let status=new liberch.Command({name:'configs'})
-status.setExecute(message=>{
+status.setExecute(async message=>{
 		const guild = message.guild;
 		const sql = new liberch.PostgreSQL({
 			connectionString:process.env.DATABASE_URL,
