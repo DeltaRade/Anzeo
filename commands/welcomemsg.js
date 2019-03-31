@@ -1,10 +1,10 @@
-const { Command } = require('liberch');
+const { Command, PostgreSQL } = require('liberch');
 const wmsg = new Command({ name:'welcomemsg', alias:['wmsg'], description:'sets the welcome message.\naccepted variables are `{mention}`,`{tag}`' });
 wmsg.setExecute (async (message, args)=> {
 	if(!message.member.permissions.has('MANAGE_GUILD')) {
 		return message.reply('insufficient permissions (needs MANAGE_GUILD)');
 	}
-	const sql = new liberch.PostgreSQL({
+	const sql = new PostgreSQL({
 		connectionString:process.env.DATABASE_URL,
 		ssl:true,
 	});
