@@ -1,4 +1,5 @@
 const { Command, PostgreSQL } = require('liberch');
+const utils = require('../utils');
 const wmsg = new Command({ name:'welcomemsg', alias:['wmsg'], description:'sets the welcome message.\naccepted variables are `{mention}`,`{tag}`' });
 wmsg.setExecute (async (message, args)=> {
 	if(!message.member.permissions.has('MANAGE_GUILD')) {
@@ -19,7 +20,7 @@ wmsg.setExecute (async (message, args)=> {
 	const guildID = message.guild.id;
 	await sql.upsert('settings', ['guild', 'welcomemsg'], [guildID, msg], 'guild', 'welcomemsg', msg);
 	await sql.end();
-	message.channel.send(`welcome message selected\npreview:\n\`\`\`${msg}\`\`\``);
+	message.channel.send(`welcome message selected\npreview:\n\`\`\`${utils.replaceMsgVars(msg, message.guild.me)}\`\`\``);
 });
 
 module.exports = wmsg;

@@ -1,4 +1,5 @@
 const { PostgreSQL } = require('liberch');
+const utils = require('../utils');
 module.exports = async (client, member)=>{
 	const sql = new PostgreSQL({
 		connectionString:process.env.DATABASE_URL,
@@ -16,9 +17,7 @@ module.exports = async (client, member)=>{
 	if(!ch) {
 		return;
 	}
-	let msg = settings.welcomemsg;
-	msg = msg.replace('{mention}', `<@${member.id}>`);
-	msg = msg.replace('{tag}', member.user.tag);
+	const msg = utils.replaceMsgVars(settings.welcomemsg, member);
 	ch.send(msg);
 	const role = member.guild.roles.get(settings.autorolerole);
 	if(settings.autoroleenabled && role) {
