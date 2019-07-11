@@ -1,19 +1,10 @@
 const liberch = require('liberch');
 const { RichEmbed } = require('discord.js');
-class Status extends liberch.Command {
-	constructor() {
-		super({ name:'configs' });
-	}
+let Status=new liberch.Command({name:'configs'})
+module.exports=Status.run((client,message)=>{
 
-	async execute(client, message) {
 		const guild = message.guild;
-		const sql = new liberch.PostgreSQL({
-			connectionString:process.env.DATABASE_URL,
-			ssl:true,
-		});
-		await sql.connect();
-		await sql.query(`INSERT INTO settings(guild) VALUES(${message.guild.id}) ON CONFLICT (guild) DO UPDATE SET guild=${message.guild.id}`);
-		const settings = await sql.query(`SELECT * FROM settings WHERE guild='${message.guild.id}'`);
+		const settings=client.settings.getAll(guild.id)
 		if(!settings) {
 			return message.channel.send('Data unavailable');
 		}
@@ -27,8 +18,6 @@ class Status extends liberch.Command {
 			.addField('autorole status', settings.autoroleenabled || 'disabled', false)
 			.addField('autorole role', settings.autorolerole ? guild.roles.get(settings.autorolerole).name : 'Not Set', false);
 		message.channel.send(ed);
-		await sql.end();
-	}
-}
+	})
 
 module.exports = Status;
