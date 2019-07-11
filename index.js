@@ -1,5 +1,6 @@
 const liberch = require('liberch');
-const client = new liberch.Client({ prefixes:['Li', '.', '&'], ownerID:'298258003470319616' });
+require('dotenv').config()
+const client = new liberch.Client({ prefix:'.', ownerID:'298258003470319616' });
 client.loadEvents('events');
 client.commandHandler.on('commandError', (error)=>{
 	console.log(error);
@@ -11,6 +12,6 @@ filewatch.on('dirChanged', (event, dir, file)=>{
 	console.log(event);
 	if(event != 'change') {return;}
 	console.log('reloading files');
-	client.reloadFiles();
+	client.reloadCommands();
 });
 client.login(process.env.token);// process.env.token

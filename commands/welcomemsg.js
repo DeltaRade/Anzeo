@@ -1,27 +1,14 @@
 const liberch = require('liberch');
-class Welcomemsg extends liberch.Command {
-	constructor() {
-		super({ name:'welcomemsg', alias:['wmsg'] });
+let WMsg = new liberch.Command({ name: 'welcomemsg', alias: ['wmsg'] });
+module.exports = WMsg.run((client, message, args) => {
+	if (!args[0]) {
+		message.channel.send('disabled welcome message');
+		client.settings.set(message.guild.id, 'w_msg', '');
+		return;
 	}
-
-	async execute(client, message, args) {
-		const sql = new liberch.PostgreSQL({
-			connectionString:process.env.DATABASE_URL,
-			ssl:true,
-		});
-		await sql.connect();
-		if(!args[0]) {
-			message.channel.send('disabled welcome message');
-			await sql.upsert('settings', ['guild', 'welcomemsg'], [message.guild.id, '']);
-			await sql.end();
-			return;
-		}
-		const msg = args.join(' ');
-		const guildID = message.guild.id;
-		await sql.upsert('settings', ['guild', 'welcomemsg'], [guildID, msg]);
-		await sql.end();
-		message.channel.send(`welcome message selected\npreview:\n\`\`\`${msg}\`\`\``);
-	}
-}
-
-module.exports = Welcomemsg;
+	const msg = args.join(' ');
+	client.settings.set(message.guild.id, 'w_msg', msg);
+	message.channel.send(
+		`welcome message selected\npreview:\n\`\`\`${msg}\`\`\``
+	);
+});

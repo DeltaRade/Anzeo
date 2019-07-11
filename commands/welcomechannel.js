@@ -1,20 +1,7 @@
-const { Command, PostgreSQL } = require('liberch');
-class WChannel extends Command {
-	constructor() {
-		super({ name:'welcomechannel', alias:['wchannel'] });
-	}
-
-	async execute(client, message) {
-		const sql = new PostgreSQL({
-			connectionString:process.env.DATABASE_URL,
-			ssl:true,
-		});
-		await sql.connect();
-		const channel = message.channel;
-		await sql.upsert('settings', ['guild', 'welcomechannel'], [message.guild.id, channel.id]);
-		await sql.end();
-		message.channel.send('welcome channel selected');
-	}
-}
-
-module.exports = WChannel;
+const { Command } = require('liberch');
+let WChannel = new Command({ name: 'welcomechannel', alias: ['wchannel'] });
+module.exports = WChannel.run((client, message) => {
+	const channel = message.channel;
+	client.settings.set(message.guild.id, 'w_channel', channel);
+	message.channel.send('welcome channel selected');
+});
