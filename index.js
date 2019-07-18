@@ -8,7 +8,7 @@ client.commandHandler.on('commandError', (error)=>{
 client.setSettings(new liberch.JSONSettingsDB())
 const filewatch = new liberch.FileWatch();
 filewatch.watchDir('commands');
-filewatch.on('dirChanged', (event, dir, file)=>{
+filewatch.on('dirChanged', (event)=>{
 	console.log(event);
 	if(event != 'change') {return;}
 	console.log('reloading files');
